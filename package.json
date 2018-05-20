@@ -1,0 +1,20 @@
+{
+  "name": "v2land-enderpearl",
+  "version": "1.0.0",
+  "main": "dist/bundle.js",
+  "repository": "https://github.com/v2land/v2land-enderpearl.git",
+  "author": "Vincent Chan",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack",
+    "build:prod": "webpack --config webpack.prod.js"
+  },
+  "devDependencies": {
+    "ts-loader": "^4.3.0",
+    "typescript": "^2.8.3",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3",
+    "webpack-merge": "^4.1.2",
+    "whatwg-fetch": "^2.0.4"
+  }
+}
