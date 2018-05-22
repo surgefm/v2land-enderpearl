@@ -2,6 +2,7 @@ import { ReportEvent } from './event';
 
 export enum DurationActionType {
   Click = 0,
+  MouseMove = 1,
   KeyDown = 64,
   Resize = 128,
   Scroll = 129,

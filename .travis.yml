@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "9"
+script:
+  - yarn build:prod
+before_deploy:
+  # Set up git user name and tag this commit
+  - git config --local user.name "Vincent Chan"
+  - git config --local user.email "okcdz@diverse.space"
+  - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file: "dist/bundle.js"
+  skip_cleanup: true

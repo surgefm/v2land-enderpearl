@@ -39,6 +39,14 @@ function init() {
     );
   });
 
+  document.addEventListener('mousemove', () => {
+    lazyCollector('mousemove', 500, () => {
+      reporter.report(
+        new DurationEvent(DurationActionType.MouseMove),
+      );
+    });
+  });
+
   document.addEventListener('keydown', () => {
     reporter.report(
       new DurationEvent(DurationActionType.KeyDown),
@@ -71,8 +79,6 @@ function init() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', event => {
-  setTimeout(() => init(), 1000); // +1s
-});
+setTimeout(() => init(), 1000); // +1s
 
 (window as any).__ENDERMAN_REPORTER__ = reporter;
