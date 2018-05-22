@@ -48,7 +48,7 @@ export class EventReporter {
     if (this.option.userId) {
       initUrl += `&userId=${this.option.userId}`;
     }
-    return fetch(this.baseUrl + '/location');
+    return fetch(initUrl);
   }
 
   private handleBusiness(business: BusinessEvent) {
