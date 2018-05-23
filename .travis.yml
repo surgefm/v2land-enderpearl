@@ -3,6 +3,7 @@ node_js:
   - "9"
 script:
   - yarn build:prod
+  - curl -i -X POST -H "Content-Type: multipart/form-data" -H "X-ENDERMAN-TOKEN: $ENDER_TOKEN" -F "bundle=@dist/bundle.js" https://enderman.v2land.net/contextscript
 before_deploy:
   # Set up git user name and tag this commit
   - git config --local user.name "Vincent Chan"
