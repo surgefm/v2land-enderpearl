@@ -4,3 +4,5 @@ node_js:
 script:
   - yarn build:prod
   - bash upload.bash
+notifications:
+  slack: v2land:xoeT2IXt8yCaUfMxoBbXrSZD
