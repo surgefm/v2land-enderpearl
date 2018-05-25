@@ -37,7 +37,9 @@ export class EventReporter {
 
   private handleDuration(duration: DurationEvent) {
     if (!this.isOfficial) {
-      console.log('[enderpearl]', duration);
+      if (this.option.verbose) {
+        console.log('[enderpearl]', duration);
+      }
       return;
     }
     let initUrl = `${this.baseUrl}/duration?actionType=${
@@ -51,7 +53,9 @@ export class EventReporter {
 
   private handleLocation(locEvt: LocationEvent) {
     if (!this.isOfficial) {
-      console.log('[enderpearl]', locEvt);
+      if (this.option.verbose) {
+        console.log('[enderpearl]', locEvt);
+      }
       return;
     }
     let initUrl = `${this.baseUrl}/location?url=${btoa(
@@ -65,7 +69,9 @@ export class EventReporter {
 
   private handleBusiness(business: BusinessEvent) {
     if (!this.isOfficial) {
-      console.log('[enderpearl]', business);
+      if (this.option.verbose) {
+        console.log('[enderpearl]', business);
+      }
       return;
     }
     const { action, meta } = business;

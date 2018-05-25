@@ -2,6 +2,7 @@ export interface Option {
   userId?: string,
   reportBaseUrl: string;
   repositoryName: string;
+  verbose?: boolean;
 }
 
 function optionThunk(): Option {
