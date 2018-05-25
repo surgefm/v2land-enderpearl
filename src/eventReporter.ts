@@ -31,7 +31,7 @@ export class EventReporter {
     this.report(new LocationEvent(url));
   }
 
-  private isOfficial() {
+  private get isOfficial() {
     return /^https:\/\/langchao.org/.test(window.location.href)
   }
 
