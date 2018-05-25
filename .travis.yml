@@ -3,6 +3,11 @@ node_js:
   - "9"
 script:
   - yarn build:prod
-  - bash upload.bash
+deploy:
+  provider: script
+  script: bash upload.bash
+  skip_cleanup: true
+  on:
+    branch: master
 notifications:
   slack: v2land:xoeT2IXt8yCaUfMxoBbXrSZD

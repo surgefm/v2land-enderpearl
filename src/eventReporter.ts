@@ -16,7 +16,7 @@ export class EventReporter {
     return option.reportBaseUrl + option.repositoryName;
   }
 
-  report(event: ReportEvent): Promise<Response> {
+  report(event: ReportEvent): Promise<Response> | void {
     switch (event.type) {
       case 'Duration':
         return this.handleDuration(event as DurationEvent);
@@ -31,7 +31,15 @@ export class EventReporter {
     this.report(new LocationEvent(url));
   }
 
+  private isOfficial() {
+    return /^https:\/\/langchao.org/.test(window.location.href)
+  }
+
   private handleDuration(duration: DurationEvent) {
+    if (!this.isOfficial) {
+      console.log('[enderpearl]', duration);
+      return;
+    }
     let initUrl = `${this.baseUrl}/duration?actionType=${
       duration.actionType
     }`;
@@ -42,6 +50,10 @@ export class EventReporter {
   }
 
   private handleLocation(locEvt: LocationEvent) {
+    if (!this.isOfficial) {
+      console.log('[enderpearl]', locEvt);
+      return;
+    }
     let initUrl = `${this.baseUrl}/location?url=${btoa(
       locEvt.url,
     )}`;
@@ -52,6 +64,10 @@ export class EventReporter {
   }
 
   private handleBusiness(business: BusinessEvent) {
+    if (!this.isOfficial) {
+      console.log('[enderpearl]', business);
+      return;
+    }
     const { action, meta } = business;
     const reportData = {
       action,
