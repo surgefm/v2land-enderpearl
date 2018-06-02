@@ -48,7 +48,9 @@ export class EventReporter {
     if (this.option.userId) {
       initUrl += `&userId=${this.option.userId}`;
     }
-    return fetch(initUrl);
+    return fetch(initUrl, {
+      credentials: 'include',
+    });
   }
 
   private handleLocation(locEvt: LocationEvent) {
@@ -64,7 +66,9 @@ export class EventReporter {
     if (this.option.userId) {
       initUrl += `&userId=${this.option.userId}`;
     }
-    return fetch(initUrl);
+    return fetch(initUrl, {
+      credentials: 'include',
+    });
   }
 
   private handleBusiness(business: BusinessEvent) {
@@ -85,6 +89,7 @@ export class EventReporter {
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
+      credentials: 'include',
     });
   }
 }
