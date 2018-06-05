@@ -34,24 +34,6 @@ function init() {
   const referrer = document.referrer.length > 0 ? document.referrer : undefined;
   reporter.report(new LocationEvent(location.href, undefined, referrer));
 
-  {
-    const srcPush = window.history.pushState;
-    const wrappedPush = (data: string, ...args: any[]) => {
-      reporter.report(new LocationEvent(location.href, data));
-      return (srcPush as any)(data, ...args);
-    }
-    window.history.pushState = wrappedPush;
-  }
-
-  {
-    const srcReplace = window.history.replaceState;
-    const wrappedReplace = (data: string, ...args: any[]) => {
-      reporter.report(new LocationEvent(location.href, data));
-      return (srcReplace as any)(data, ...args);
-    }
-    window.history.pushState = wrappedReplace;
-  }
-
   document.addEventListener('click', () => {
     reporter.report(
       new DurationEvent(DurationActionType.Click),
