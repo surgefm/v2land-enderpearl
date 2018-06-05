@@ -63,6 +63,12 @@ export class EventReporter {
     let initUrl = `${this.baseUrl}/location?url=${btoa(
       locEvt.url,
     )}`;
+    if (locEvt.referrer) {
+      initUrl += `&referrer=${btoa(locEvt.referrer)}`;
+    }
+    if (locEvt.redirectFrom) {
+      initUrl += `&redirectFrom=${btoa(locEvt.redirectFrom)}`
+    }
     if (this.option.userId) {
       initUrl += `&userId=${this.option.userId}`;
     }

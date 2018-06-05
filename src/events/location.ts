@@ -5,5 +5,7 @@ export class LocationEvent implements ReportEvent {
 
   public constructor(
     public readonly url: string,
+    public readonly redirectFrom?: string,
+    public readonly referrer?: string,
   ) {}
 }
