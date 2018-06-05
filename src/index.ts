@@ -98,8 +98,6 @@ function init() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", function(event) {
-  init();
-});
+init();
 
 (window as any).__ENDERMAN_REPORTER__ = reporter;
