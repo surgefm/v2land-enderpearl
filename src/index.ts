@@ -38,6 +38,7 @@ async function fetchMaskedClient() {
   const win = window as any;
   if (win.__NUXT__ && win.__NUXT__.state.client) {
     const realId = win.__NUXT__.state.client.id;
+    if (typeof realId === 'undefined') return;
     const resp = await fetch(`${option.reportBaseUrl}api/v2land/maskedClient?clientId=${realId}`, {
       method: 'GET',
       credentials: 'include',
