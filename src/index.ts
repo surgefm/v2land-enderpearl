@@ -5,6 +5,7 @@ import {
   DurationEvent,
   DurationActionType,
 } from './events/duration';
+import optionThunk from './option';
 
 const reporter = new EventReporter(OptionThunk);
 
@@ -30,7 +31,26 @@ function lazyCollector(
   }, timeout);
 }
 
+// 通过 Nuxt 里面的 client 信息获取相应的 maskedId
+// 存到 option 里面
+async function fetchMaskedClient() {
+  const option = optionThunk();
+  const win = window as any;
+  if (win.__NUXT__ && win.__NUXT__.state.client) {
+    const realId = win.__NUXT__.state.client.id;
+    const resp = await fetch(`${option.reportBaseUrl}/api/v2land/maskedClient?clientId=${realId}`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    const data = await resp.json();
+    win.__ENDERPEARL_OPTION__.userId = data.id;
+  }
+}
+
 function init() {
+  fetchMaskedClient();
+
   const referrer = document.referrer.length > 0 ? document.referrer : undefined;
   reporter.report(new LocationEvent(location.href, undefined, referrer));
 
