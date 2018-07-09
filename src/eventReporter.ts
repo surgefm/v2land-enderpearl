@@ -4,8 +4,33 @@ import { DurationEvent } from './events/duration';
 import { LocationEvent } from './events/location';
 import { BusinessEvent } from './events/business';
 
+const ENDER_ID = 'enderId';
+
+function generateUUID() {
+  var d = new Date().getTime();
+  var uuid = 'xxxx-4xxx-yxxx-xxxx'.replace(/[xy]/g, function (c) {
+    var r = (d + Math.random() * 16) % 16 | 0;
+    d = Math.floor(d / 16);
+    return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+  });
+  return uuid;
+};
+
 export class EventReporter {
-  constructor(public readonly optionThunk: () => Option) {}
+  private clientId: string;
+
+  constructor(public readonly optionThunk: () => Option) {
+    const KEY = `${ENDER_ID}=`;
+    const index = document.cookie.indexOf(KEY);
+
+    if (index >= 0) {
+      const tail = document.cookie.slice(index);
+      this.clientId = tail.slice(0, tail.indexOf(';'));
+    } else {
+      this.clientId = generateUUID();
+      document.cookie += ` ${ENDER_ID}=${this.clientId}`;
+    }
+  }
 
   get option() {
     return this.optionThunk();
@@ -42,7 +67,7 @@ export class EventReporter {
       }
       return;
     }
-    let initUrl = `${this.baseUrl}/duration?actionType=${
+    let initUrl = `${this.baseUrl}/duration?u=${this.clientId}&actionType=${
       duration.actionType
     }`;
     if (this.option.userId) {
@@ -60,7 +85,7 @@ export class EventReporter {
       }
       return;
     }
-    let initUrl = `${this.baseUrl}/location?url=${btoa(
+    let initUrl = `${this.baseUrl}/location?u=${this.clientId}&url=${btoa(
       locEvt.url,
     )}`;
     if (locEvt.referrer) {
@@ -86,6 +111,7 @@ export class EventReporter {
     }
     const { action, meta } = business;
     const reportData = {
+      u: this.clientId,
       action,
       meta,
     };
