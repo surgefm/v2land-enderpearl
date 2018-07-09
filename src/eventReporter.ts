@@ -24,7 +24,7 @@ export class EventReporter {
     const index = document.cookie.indexOf(KEY);
 
     if (index >= 0) {
-      const tail = document.cookie.slice(index);
+      const tail = document.cookie.slice(index + KEY.length);
       const seliIndex = tail.indexOf(';');
       this.clientId = tail.slice(0, seliIndex ? seliIndex : tail.length);
     } else {
