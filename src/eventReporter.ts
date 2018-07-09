@@ -25,10 +25,11 @@ export class EventReporter {
 
     if (index >= 0) {
       const tail = document.cookie.slice(index);
-      this.clientId = tail.slice(0, tail.indexOf(';'));
+      const seliIndex = tail.indexOf(';');
+      this.clientId = tail.slice(0, seliIndex ? seliIndex : tail.length);
     } else {
       this.clientId = generateUUID();
-      document.cookie += ` ${ENDER_ID}=${this.clientId}`;
+      document.cookie = `${ENDER_ID}=${this.clientId}`;
     }
   }
 
