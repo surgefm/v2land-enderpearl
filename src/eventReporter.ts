@@ -113,10 +113,11 @@ export class EventReporter {
     const { action, meta } = business;
     const reportData = {
       u: this.clientId,
-      action,
-      meta,
+      content: [
+        [2, { action, meta }],
+      ],
     };
-    return fetch(this.baseUrl + '/business', {
+    return fetch(this.baseUrl + '/chunk', {
       method: 'POST',
       body: JSON.stringify(reportData),
       headers: new Headers({
